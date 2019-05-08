@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+import { Route } from 'react-router-dom';
 import SideMenu from '../component/SideMenu';
 import PhoneList from '../page/PhoneList';
+import PhoneDetail from '../page/phoneDetail';
 
 class App extends Component {
 
@@ -53,23 +55,6 @@ class App extends Component {
     });
   }
 
-  //즐겨찾기 추가
-  _favClick = (item) =>{
-    item.favorit = !item.favorit;
-    
-    const {information} = this.state;
-
-    this.setState({
-      information: information.map(
-        info => item.id === info.id
-        ? {...info, ...item}
-        : info
-      )
-    });
-    console.log(item);
-    
-  }
-
   render() {
     return (
       <Layout>
@@ -78,7 +63,8 @@ class App extends Component {
           margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
         }}
         >
-          <PhoneList listdata={this.state.information} favClick={this._favClick}/>
+          <Route path={"/"} component={PhoneList}/>
+          <Route path={"/tel/:key"} component={PhoneDetail}/>
         </Layout.Content>
       </Layout>
     );
