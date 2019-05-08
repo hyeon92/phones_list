@@ -3,7 +3,6 @@ import { Layout } from 'antd';
 import { Route } from 'react-router-dom';
 import SideMenu from '../component/SideMenu';
 import PhoneList from '../page/PhoneList';
-import PhoneDetail from '../page/phoneDetail';
 
 class App extends Component {
 
@@ -64,7 +63,6 @@ class App extends Component {
         }}
         >
           <Route path={"/"} component={PhoneList}/>
-          <Route path={"/tel/:key"} component={PhoneDetail}/>
         </Layout.Content>
       </Layout>
     );
