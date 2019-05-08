@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './SideMenu.css'
@@ -21,6 +22,9 @@ class SideMenu extends Component {
         trigger={null}
         collapsible
         collapsed={this.state.collapsed}
+        style={{
+          overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
+        }}
       >
         <Icon
           className="trigger"
@@ -35,12 +39,16 @@ class SideMenu extends Component {
           inlineCollapsed={this.state.collapsed}
         >
           <Menu.Item key="1">
-            <Icon type="bars" />
-            <span>List</span>
+            <Link to="/">
+              <Icon type="bars" />
+              <span>List</span>
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="star" />
-            <span>Favorite List</span>
+            <Link to="/favoritList">
+              <Icon type="star" />
+              <span>Favorite List</span>
+            </Link>
           </Menu.Item>
         </Menu>
       </Layout.Sider>
