@@ -30,18 +30,32 @@ class PhoneList extends Component{
   _reverFavorit = id =>{
 
     //객체의 즐겨찾기 on/off 반영
-    const list = this._info.reverfavorit(id);
+    this._info.reverfavorit(id);
 
-    this.setState({list});
+    //메뉴 선택에 따라 데이터 가져오기
+    const key = this.props.match.params.list;
+
+    if(key === "favoritList")
+      this.setState({list : this._info.getFavoritList()});
+    else
+      this.setState({list : this._info.getList()});
+
   }
   
   //항목 삭제
   _delItem = id => {
 
     //객체의 리스트 삭제 반영
-    const list = this._info.delInfomation(id);
-    
-    this.setState({list});
+    this._info.delInfomation(id);
+
+    //메뉴 선택에 따라 데이터 가져오기
+    const key = this.props.match.params.list;
+
+    if(key === "favoritList")
+      this.setState({list : this._info.getFavoritList()});
+    else
+      this.setState({list : this._info.getList()});
+
 
   }
 

@@ -69,14 +69,12 @@ var Info = (function() {
           info => info.id === id ? {...info, favorit: !info.favorit} : info
         )
 
-        return information;
       },
 
       //데이터 삭제
       delInfomation : id => {
         information = information.filter(item => item.id !== id);
         
-        return information;
       },
 
       //데이터 수정

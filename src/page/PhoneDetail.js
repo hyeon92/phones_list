@@ -47,9 +47,13 @@ class PhoneDetail extends Component{
   //번호변경
   _numChanged = (e) => {
 
-    const list = this.state.list;
+    const reg = /^-?(0|[1-9][0-9]*)([0-9-]*)?$/;
 
-    list.phone = e.target.value;
+    const list = this.state.list;
+    const value = e.target.value;
+    
+    if ((!Number.isNaN(value) && reg.test(value)))
+      list.phone = value;
 
     this.setState({
       list
