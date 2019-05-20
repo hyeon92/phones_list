@@ -159,8 +159,6 @@ export default handleActions({
       //add
       state.detail.id = key;
 
-      console.log(state.detail);
-
       state.list.push(state.detail);
     
       return {...state, detail:{}}
