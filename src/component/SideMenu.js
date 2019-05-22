@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
-import './SideMenu.css'
+import './SideMenu.css';
 
 class SideMenu extends Component {
-
   state = {
     collapsible: false
-  }
+  };
 
   toggle = () => {
     this.setState({
-      collapsed: !this.state.collapsed,
+      collapsed: !this.state.collapsed
     });
-  }
+  };
 
   render() {
     return (
@@ -23,7 +22,10 @@ class SideMenu extends Component {
         collapsible
         collapsed={this.state.collapsed}
         style={{
-          overflow: 'auto', height: '100vh', position: 'fixed', left: 0,
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0
         }}
       >
         <Icon

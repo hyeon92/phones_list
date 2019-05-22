@@ -5,46 +5,40 @@ import { Input, Checkbox, Button } from 'antd';
 const PhoneDetail = ({
   listName,
   detail,
-  onEditName, 
+  onEditName,
   onEditPhone,
   onReverseFavorit,
-  onSave}) => {
+  onSave
+}) => {
+  if (!detail) {
+    detail = {
+      id: 0,
+      name: null,
+      phone: null,
+      favorit: false
+    };
+  }
 
-    if(!detail){
-      detail = {
-        id: 0,
-        name : null,
-        phone: null,
-        favorit: false
-      };
-    }
-
-  return(
+  return (
     <div>
-      <Input 
-        placeholder="Name"
-        value={detail.name}
-        onChange={onEditName}
-      />
-      <Input 
+      <Input placeholder="Name" value={detail.name} onChange={onEditName} />
+      <Input
         placeholder="Phone Number"
         value={detail.phone}
         onChange={onEditPhone}
       />
-      <h1></h1>
-      <Checkbox 
-        checked={detail.favorit}
-        onChange={onReverseFavorit}
-      >즐겨찾기</Checkbox>
-      <h1></h1>
+      <h1 />
+      <Checkbox checked={detail.favorit} onChange={onReverseFavorit}>
+        즐겨찾기
+      </Checkbox>
+      <h1 />
       <Link to={`/${listName}`}>
-      <Button 
-        block type="primary"
-        onClick={onSave}
-      >Save</Button>
+        <Button block type="primary" onClick={onSave}>
+          Save
+        </Button>
       </Link>
     </div>
-  )
-}
+  );
+};
 
 export default PhoneDetail;

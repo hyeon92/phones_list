@@ -24,7 +24,7 @@ export const save = createAction(SAVE);
 
 //모듈 초기상태 정의
 const initialState = {
-  list:[
+  list: [
     {
       id: 1,
       name: 'S.Ramos',
@@ -62,108 +62,106 @@ const initialState = {
       favorit: false
     }
   ],
-  detail:{}
+  detail: {}
 };
 
-export default handleActions({
+export default handleActions(
+  {
+    //get List
+    [GETLIST]: (state = initialState) => {
+      return state;
+    },
 
-  //get List
-  [GETLIST]: (state= initialState) => {
+    //리스트 즐겨찾기 on/off
+    [REVERSEFAVORIT]: (state, action) => {
+      const key = action.payload;
+      let phones = state.list;
 
-    return state;
+      phones = phones.map(info =>
+        info.id === key ? { ...info, favorit: !info.favorit } : info
+      );
 
-  },
+      return { list: phones };
+    },
 
-  //리스트 즐겨찾기 on/off
-  [REVERSEFAVORIT]: (state, action) => {
+    //삭제
+    [DELETE]: (state, action) => {
+      const key = action.payload;
+      let phones = state.list;
 
-    const key = action.payload;
-    let phones = state.list;
+      phones = phones.filter(item => item.id !== key);
+      return { list: phones };
+    },
 
-    phones = phones.map(
-      info => info.id === key ? {...info, favorit: !info.favorit} : info
-    )
-    
-    return {list:phones};
-  },
+    //get item
+    [GETDATA]: (state, action) => {
+      const key = action.payload;
 
-  //삭제
-  [DELETE]: (state, action) => {
+      let info = state.list.filter(item => item.id === key);
 
-    const key = action.payload;
-    let phones = state.list;
-
-    phones = phones.filter(item => item.id !== key);
-    return {list:phones};
-  },
-
-  //get item
-  [GETDATA] : (state, action) => {
-    const key = action.payload;
-
-    let info = state.list.filter(item => item.id === key);
-
-    return {
-      ...state,
-      detail: info[0]
-    };
-  },
-
-  // edit Name
-  [EDITNAME] : (state, action) => {
-    return {...state, detail:{ ...state.detail, name: action.payload}}
-  },
-
-  //edit Phone
-  [EDITPHONE] : (state, action) => {
-
-    const reg = /^-?(0|[1-9][0-9]*)([0-9-]*)?$/;
-
-    const value = action.payload;
-    if ((!Number.isNaN(value) && reg.test(value)))
-      return {...state, detail:{ ...state.detail, phone: action.payload}}
-    else
-      return {...state}
-  },
-
-  //Detail 즐겨찾기 on/off
-  [EDITFAVORIT] : state => {
-    
-    return {...state, detail:{ ...state.detail, favorit: !state.detail.favorit}}
-  },
-
-  //Detail 정보 저장
-  [SAVE] : (state= initialState, action) => {
-
-    let key = state.detail.id;
-
-    if(!key){
-      key = state.list[state.list.length-1].id+1;
-    }
-
-    const findValue = state.list.filter(item => item.id === key);
-
-    if(findValue.length > 0){
-      //update
       return {
-        list: state.list.map(
-          info => info.id === key ? 
-            {...info, 
-              name: state.detail.name, 
-              phone: state.detail.phone, 
-              favorit: state.detail.favorit} : info
-        ),
-        detail:{}
+        ...state,
+        detail: info[0]
+      };
+    },
+
+    // edit Name
+    [EDITNAME]: (state, action) => {
+      return { ...state, detail: { ...state.detail, name: action.payload } };
+    },
+
+    //edit Phone
+    [EDITPHONE]: (state, action) => {
+      const reg = /^-?(0|[1-9][0-9]*)([0-9-]*)?$/;
+
+      const value = action.payload;
+      if (!Number.isNaN(value) && reg.test(value))
+        return { ...state, detail: { ...state.detail, phone: action.payload } };
+      else return { ...state };
+    },
+
+    //Detail 즐겨찾기 on/off
+    [EDITFAVORIT]: state => {
+      return {
+        ...state,
+        detail: { ...state.detail, favorit: !state.detail.favorit }
+      };
+    },
+
+    //Detail 정보 저장
+    [SAVE]: (state = initialState, action) => {
+      let key = state.detail.id;
+
+      if (!key) {
+        key = state.list[state.list.length - 1].id + 1;
       }
-    }else{
-      //add
-      state.detail.id = key;
 
-      state.list.push(state.detail);
-    
-      return {...state, detail:{}}
+      const findValue = state.list.filter(item => item.id === key);
 
+      if (findValue.length > 0) {
+        //update
+        return {
+          list: state.list.map(info =>
+            info.id === key
+              ? {
+                  ...info,
+                  name: state.detail.name,
+                  phone: state.detail.phone,
+                  favorit: state.detail.favorit
+                }
+              : info
+          ),
+          detail: {}
+        };
+      } else {
+        //add
+        state.detail.id = key;
+
+        state.list.push(state.detail);
+
+        return { ...state, detail: {} };
+      }
     }
-  }
-
-}, initialState);
+  },
+  initialState
+);

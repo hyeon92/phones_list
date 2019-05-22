@@ -5,12 +5,11 @@ import App from '../shared/App';
 import store from '../store';
 
 const Root = () => (
-
-    <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 export default Root;
